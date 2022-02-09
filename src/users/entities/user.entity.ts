@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from 'src/events/entities';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 const tableName = 'users';
 
@@ -17,4 +18,7 @@ export class User {
 
   @Column({ type: 'text', select: false })
   password: string;
+
+  @OneToMany(() => Event, (event) => event.user)
+  events: Event[];
 }
