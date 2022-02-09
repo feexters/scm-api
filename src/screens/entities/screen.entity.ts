@@ -3,10 +3,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Event } from 'src/events/entities';
 import { User } from '../../users/entities/user.entity';
+import { Playlist } from '../../playlists/entities/playlist.entity';
 
 const tableName = 'screens';
 
@@ -36,4 +38,7 @@ export class Screen {
     referencedColumnName: 'id',
   })
   user: User;
+
+  @OneToOne(() => Playlist, (playlist) => playlist.screen)
+  playlist: Playlist;
 }
