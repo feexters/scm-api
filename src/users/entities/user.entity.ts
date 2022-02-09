@@ -1,5 +1,6 @@
 import { Event } from 'src/events/entities';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Screen } from '../../screens/entities/screen.entity';
 
 const tableName = 'users';
 
@@ -21,4 +22,7 @@ export class User {
 
   @OneToMany(() => Event, (event) => event.user)
   events: Event[];
+
+  @OneToMany(() => Screen, (screen) => screen.user)
+  screens: Screen[];
 }

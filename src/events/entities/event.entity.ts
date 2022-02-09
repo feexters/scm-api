@@ -1,13 +1,15 @@
+import { Screen } from 'src/screens/entities';
 import { User } from 'src/users/entities';
 import {
   Column,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-const tableName = 'entities';
+const tableName = 'events';
 
 @Entity({
   name: tableName,
@@ -28,4 +30,7 @@ export class Event {
     referencedColumnName: 'id',
   })
   user: User;
+
+  @OneToMany(() => Screen, (screen) => screen.event)
+  screens: Screen[];
 }
