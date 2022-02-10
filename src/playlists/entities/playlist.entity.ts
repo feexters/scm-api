@@ -5,9 +5,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import { PlaylistContent } from 'src/playlist-content/entities';
 
 const tableName = 'playlists';
 
@@ -40,4 +42,10 @@ export class Playlist {
     referencedColumnName: 'id',
   })
   user: User;
+
+  @OneToMany(
+    () => PlaylistContent,
+    (playlistContent) => playlistContent.playlist,
+  )
+  playlistContentPlaylists: PlaylistContent[];
 }

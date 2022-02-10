@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmConfigService } from './common/services/typeorm-config.service';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -9,6 +11,9 @@ import * as configuration from './config/configuration';
       load: [configuration.configuration],
       validationSchema: configuration.validationSchema,
       validationOptions: configuration.validationOptions,
+    }),
+    TypeOrmModule.forRootAsync({
+      useClass: TypeOrmConfigService,
     }),
   ],
   controllers: [],
