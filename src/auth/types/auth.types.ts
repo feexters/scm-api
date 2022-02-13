@@ -1,3 +1,3 @@
-import { User } from 'src/users/entities';
+import { UserModel } from 'src/users/models';
 
-export type LoginResultType = Omit<User, 'password'> & { token: string };
+export type LoginResultType = UserModel & { token: string };

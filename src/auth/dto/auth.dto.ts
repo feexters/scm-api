@@ -1,24 +1,28 @@
-import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
-import { User } from 'src/users/entities';
+import { ApiProperty, PickType } from '@nestjs/swagger';
+import { IsString, Length } from 'class-validator';
+import { UserModel } from 'src/users/models/user.model';
 
-export class AuthSignInDto extends PickType(User, ['password', 'email']) {
-  @ApiProperty({ example: 'password1234', minLength: 6, maxLength: 24 })
-  password: string;
-}
-
-export class AuthSignUpDto extends PickType(User, [
+export class BaseAuthRequestDto extends PickType(UserModel, [
   'username',
-  'password',
   'email',
 ]) {
   @ApiProperty({ example: 'password1234', minLength: 6, maxLength: 24 })
+  @IsString()
+  @Length(6, 24)
   password: string;
 }
 
-export class AuthResponseDto extends OmitType(User, ['password']) {
-  token: string;
-}
+export class AuthSignInDto extends PickType(BaseAuthRequestDto, [
+  'email',
+  'password',
+]) {}
 
-export class JwtPayload extends PickType(User, ['id', 'email']) {
-  expiration: Date;
+export class AuthSignUpDto extends PickType(BaseAuthRequestDto, [
+  'username',
+  'email',
+  'password',
+]) {}
+
+export class AuthResponseDto extends UserModel {
+  token: string;
 }

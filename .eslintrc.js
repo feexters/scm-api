@@ -38,5 +38,6 @@ module.exports = {
     '@typescript-eslint/no-for-in-array': 'error',
     '@typescript-eslint/no-inferrable-types': 'error',
     '@typescript-eslint/prefer-enum-initializers': 'error',
+    '@typescript-eslint/no-unused-vars': 'error',
   },
 };

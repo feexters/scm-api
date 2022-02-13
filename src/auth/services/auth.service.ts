@@ -1,10 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersRepository } from 'src/users/repositories';
-import { AuthSignUpDto, AuthSignInDto, JwtPayload } from '../dto/auth.dto';
+import { AuthSignUpDto, AuthSignInDto, JwtPayload } from '../dto';
 import { getHashedPassword } from '../../common/utils/get-hashed-password';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '../../users/entities/user.entity';
 import { LoginResultType } from '../types';
+import { UserModel } from 'src/users/models';
 
 @Injectable()
 export class AuthService {
@@ -35,17 +36,14 @@ export class AuthService {
   }
 
   private login(user: User): LoginResultType {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { password, ...userResponse } = user;
-
     const jwtPayload: JwtPayload = {
-      id: userResponse.id,
-      email: userResponse.email,
+      id: user.id,
+      email: user.email,
       expiration: new Date(),
     };
 
     return {
-      ...userResponse,
+      ...UserModel.create(user),
       token: this.jwtService.sign(jwtPayload),
     };
   }
