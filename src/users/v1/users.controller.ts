@@ -5,7 +5,7 @@ import { UserModel } from '../models';
 import { UpdateUserDto } from './dto';
 import { UsersService } from './services';
 import { Public } from '../../common/decorators/public.decorator';
-import { UserOwnerGuard } from '../guards';
+import { UserOwnerGuard } from './guards';
 
 @ApiTags('[v1] Users')
 @Crud({
