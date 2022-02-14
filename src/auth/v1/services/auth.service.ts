@@ -1,11 +1,11 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersRepository } from 'src/users/repositories';
 import { AuthSignUpDto, AuthSignInDto, JwtPayload } from '../dto';
-import { getHashedPassword } from '../../common/utils/get-hashed-password';
 import { JwtService } from '@nestjs/jwt';
-import { User } from '../../users/entities/user.entity';
-import { LoginResultType } from '../types';
 import { UserModel } from 'src/users/models';
+import { LoginResultType } from 'src/auth/types';
+import { getHashedPassword } from 'src/common/utils';
+import { User } from 'src/users/entities';
 
 @Injectable()
 export class AuthService {

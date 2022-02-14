@@ -24,5 +24,6 @@ export class AuthSignUpDto extends PickType(BaseAuthRequestDto, [
 ]) {}
 
 export class AuthResponseDto extends UserModel {
+  @ApiProperty({ example: 'token' })
   token: string;
 }

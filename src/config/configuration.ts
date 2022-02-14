@@ -10,7 +10,7 @@ export const validationSchema = Joi.object({
   DB_PASSWORD: Joi.string().required(),
   // jwt
   JWT_SECRET: Joi.string().required(),
-  JWT_SECRET_EXPIRES_IN: Joi.number().integer().required(),
+  JWT_SECRET_EXPIRES_IN: Joi.string().required(),
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type

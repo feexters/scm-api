@@ -1,4 +1,4 @@
-import { AuthSignInDto } from 'src/auth/dto';
+import { AuthSignInDto } from 'src/auth/v1/dto';
 import { getHashedPassword } from 'src/common/utils';
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from '../entities/user.entity';
