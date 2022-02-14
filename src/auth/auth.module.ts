@@ -3,11 +3,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersRepository } from 'src/users/repositories';
-import { AuthController } from './auth.controller';
+import { AuthController } from './v1/auth.controller';
 import { JwtStrategy } from './jwt.strategy';
-import { AuthJwtService } from './services/auth-jwt.service';
-import { AuthService } from './services/auth.service';
-import { JWTConfigService } from './services/jwt-config.service';
+import { AuthJwtService, JWTConfigService, AuthService } from './v1/services';
 
 @Module({
   imports: [

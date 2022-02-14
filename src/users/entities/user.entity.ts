@@ -3,6 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Screen } from '../../screens/entities/screen.entity';
 import { Playlist } from '../../playlists/entities/playlist.entity';
 import { Content } from '../../content/entities/content.entity';
+import { Exclude } from 'class-transformer';
 
 const tableName = 'users';
 
@@ -19,6 +20,7 @@ export class User {
   @Column({ type: 'text', unique: true })
   email: string;
 
+  @Exclude()
   @Column({ type: 'text', select: false })
   password: string;
 

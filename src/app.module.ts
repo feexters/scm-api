@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmConfigService } from './common/services/typeorm-config.service';
+import { UsersModule } from './users/users.module';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -17,6 +18,7 @@ import * as configuration from './config/configuration';
       useClass: TypeOrmConfigService,
     }),
     AuthModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
