@@ -6,6 +6,7 @@ import { TypeOrmConfigService } from './common/services/typeorm-config.service';
 import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { ScreensModule } from './screens/screens.module';
+import { PlaylistsModule } from './playlists/playlists.module';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -23,6 +24,7 @@ import * as configuration from './config/configuration';
     UsersModule,
     EventsModule,
     ScreensModule,
+    PlaylistsModule,
   ],
 })
 export class AppModule {}
