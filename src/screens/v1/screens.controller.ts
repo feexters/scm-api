@@ -1,4 +1,3 @@
-import { CreateEventDto, UpdateEventDto } from './dto';
 import { Controller, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import {
@@ -9,15 +8,16 @@ import {
   ParsedBody,
   ParsedRequest,
 } from '@nestjsx/crud';
-import { EventModel } from '../models/event.model';
 import { IAM, Public } from 'src/common/decorators';
-import { EventOwnerGuard } from './guards';
-import { EventsService } from './services';
+import { ScreenModel } from '../models';
+import { CreateScreenDto, UpdateScreenDto } from './dto/screens.dto';
+import { ScreenOwnerGuard } from './guards';
+import { ScreensService } from './services';
 
-@ApiTags('[v1] Events')
+@ApiTags('[v1] Screens')
 @Crud({
   model: {
-    type: EventModel,
+    type: ScreenModel,
   },
   params: {
     id: {
@@ -25,10 +25,14 @@ import { EventsService } from './services';
       primary: true,
       field: 'id',
     },
+    eventId: {
+      field: 'eventId',
+      type: 'uuid',
+    },
   },
   dto: {
-    update: UpdateEventDto,
-    create: CreateEventDto,
+    update: UpdateScreenDto,
+    create: CreateScreenDto,
   },
   routes: {
     only: [
@@ -45,26 +49,26 @@ import { EventsService } from './services';
       decorators: [Public()],
     },
     updateOneBase: {
-      decorators: [UseGuards(EventOwnerGuard), ApiBearerAuth()],
+      decorators: [UseGuards(ScreenOwnerGuard), ApiBearerAuth()],
     },
     deleteOneBase: {
-      decorators: [UseGuards(EventOwnerGuard), ApiBearerAuth()],
+      decorators: [UseGuards(ScreenOwnerGuard), ApiBearerAuth()],
     },
   },
 })
-@Controller('v1/events')
-export class EventsController implements CrudController<EventModel> {
-  constructor(public service: EventsService) {}
+@Controller('v1/events/:eventId/screens')
+export class ScreensController implements CrudController<ScreenModel> {
+  constructor(public service: ScreensService) {}
 
   @Override('createOneBase')
   @ApiBearerAuth()
   async createOne(
     @IAM('id') userId: string,
     @ParsedRequest() req: CrudRequest,
-    @ParsedBody() dto: CreateEventDto,
-  ): Promise<EventModel> {
-    const event = await this.service.createOne(req, { ...dto, userId });
+    @ParsedBody() dto: CreateScreenDto,
+  ): Promise<ScreenModel> {
+    const screen = await this.service.createOne(req, { ...dto, userId });
 
-    return EventModel.create(event);
+    return ScreenModel.create(screen);
   }
 }

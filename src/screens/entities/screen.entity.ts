@@ -19,6 +19,9 @@ export class Screen {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Column({ type: 'text', nullable: true })
+  name?: string;
+
   @Column({ type: 'uuid' })
   userId: string;
 
