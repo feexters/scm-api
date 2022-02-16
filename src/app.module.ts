@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { EventsModule } from './events/events.module';
 import { ScreensModule } from './screens/screens.module';
 import { PlaylistsModule } from './playlists/playlists.module';
+import { ContentModule } from './content/content.module';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -25,6 +26,7 @@ import * as configuration from './config/configuration';
     EventsModule,
     ScreensModule,
     PlaylistsModule,
+    ContentModule,
   ],
 })
 export class AppModule {}
