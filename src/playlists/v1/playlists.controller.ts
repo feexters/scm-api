@@ -1,14 +1,7 @@
 import { Controller, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-  Crud,
-  CrudController,
-  CrudRequest,
-  Override,
-  ParsedBody,
-  ParsedRequest,
-} from '@nestjsx/crud';
-import { IAM, Public } from 'src/common/decorators';
+import { Crud, CrudController } from '@nestjsx/crud';
+import { Public } from 'src/common/decorators';
 import { PlaylistModel } from '../models';
 import { CreatePlaylistDto, UpdatePlaylistDto } from './dto';
 import { PlaylistOwnerGuard } from './guards/playlist-owner.guard';
@@ -20,14 +13,10 @@ import { PlaylistsService } from './services';
     type: PlaylistModel,
   },
   params: {
-    id: {
+    playlistId: {
       type: 'uuid',
       primary: true,
       field: 'id',
-    },
-    screenId: {
-      field: 'screenId',
-      type: 'uuid',
     },
   },
   dto: {
@@ -35,13 +24,7 @@ import { PlaylistsService } from './services';
     create: CreatePlaylistDto,
   },
   routes: {
-    only: [
-      'getOneBase',
-      'updateOneBase',
-      'deleteOneBase',
-      'createOneBase',
-      'getManyBase',
-    ],
+    only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
     },
@@ -56,19 +39,7 @@ import { PlaylistsService } from './services';
     },
   },
 })
-@Controller('v1/screens/:screenId/playlists')
+@Controller('v1/playlists')
 export class PlaylistsController implements CrudController<PlaylistModel> {
   constructor(public service: PlaylistsService) {}
-
-  @Override('createOneBase')
-  @ApiBearerAuth()
-  async createOne(
-    @IAM('id') userId: string,
-    @ParsedRequest() req: CrudRequest,
-    @ParsedBody() dto: CreatePlaylistDto,
-  ): Promise<PlaylistModel> {
-    const event = await this.service.createOne(req, { ...dto, userId });
-
-    return PlaylistModel.create(event);
-  }
 }

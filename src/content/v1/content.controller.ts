@@ -20,7 +20,7 @@ import { ContentService } from './services';
     type: ContentModel,
   },
   params: {
-    id: {
+    contentId: {
       type: 'uuid',
       primary: true,
       field: 'id',

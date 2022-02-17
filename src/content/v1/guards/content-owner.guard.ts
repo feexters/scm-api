@@ -18,7 +18,7 @@ export class ContentOwnerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const isOwner = await this.contentRepository.isContentOwner({
-      contentId: request.params.id,
+      contentId: request.params.contentId,
       userId: request.user.id,
     });
 

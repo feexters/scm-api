@@ -1,6 +1,6 @@
 import { CreateEventDto, UpdateEventDto } from './dto';
-import { Controller, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
   Crud,
   CrudController,
@@ -13,6 +13,9 @@ import { EventModel } from '../models/event.model';
 import { IAM, Public } from 'src/common/decorators';
 import { EventOwnerGuard } from './guards';
 import { EventsService } from './services';
+import { ScreensService } from '../../screens/v1/services/screens.service';
+import { CreateScreenDto } from 'src/screens/v1/dto';
+import { ScreenModel } from 'src/screens/models';
 
 @ApiTags('[v1] Events')
 @Crud({
@@ -20,7 +23,7 @@ import { EventsService } from './services';
     type: EventModel,
   },
   params: {
-    id: {
+    eventId: {
       type: 'uuid',
       primary: true,
       field: 'id',
@@ -54,7 +57,10 @@ import { EventsService } from './services';
 })
 @Controller('v1/events')
 export class EventsController implements CrudController<EventModel> {
-  constructor(public service: EventsService) {}
+  constructor(
+    public service: EventsService,
+    private screensService: ScreensService,
+  ) {}
 
   @Override('createOneBase')
   @ApiBearerAuth()
@@ -66,5 +72,21 @@ export class EventsController implements CrudController<EventModel> {
     const event = await this.service.createOne(req, { ...dto, userId });
 
     return EventModel.create(event);
+  }
+
+  @Post(':eventId/screens')
+  @ApiOkResponse({ type: ScreenModel })
+  @ApiBearerAuth()
+  async createScreen(
+    @IAM('id') userId: string,
+    @Param('eventId') eventId: string,
+    @ParsedBody() dto: CreateScreenDto,
+  ): Promise<ScreenModel> {
+    const screen = await this.screensService.createScreen(dto, {
+      eventId,
+      userId,
+    });
+
+    return ScreenModel.create(screen);
   }
 }

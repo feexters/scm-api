@@ -13,7 +13,7 @@ import { UserOwnerGuard } from './guards';
     type: UserModel,
   },
   params: {
-    id: {
+    userId: {
       type: 'uuid',
       primary: true,
       field: 'id',

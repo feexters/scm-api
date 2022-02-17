@@ -18,7 +18,7 @@ export class ScreenOwnerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const isOwner = await this.screensRepository.isScreenOwner({
-      screenId: request.params.id,
+      screenId: request.params.screenId,
       userId: request.user.id,
     });
 

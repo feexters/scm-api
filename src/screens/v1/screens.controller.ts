@@ -1,14 +1,10 @@
-import { Controller, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-  Crud,
-  CrudController,
-  CrudRequest,
-  Override,
-  ParsedBody,
-  ParsedRequest,
-} from '@nestjsx/crud';
+import { Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { Crud, CrudController, ParsedBody } from '@nestjsx/crud';
 import { IAM, Public } from 'src/common/decorators';
+import { PlaylistModel } from 'src/playlists/models';
+import { CreatePlaylistDto } from 'src/playlists/v1/dto';
+import { PlaylistsService } from 'src/playlists/v1/services';
 import { ScreenModel } from '../models';
 import { CreateScreenDto, UpdateScreenDto } from './dto/screens.dto';
 import { ScreenOwnerGuard } from './guards';
@@ -20,14 +16,10 @@ import { ScreensService } from './services';
     type: ScreenModel,
   },
   params: {
-    id: {
+    screenId: {
       type: 'uuid',
       primary: true,
       field: 'id',
-    },
-    eventId: {
-      field: 'eventId',
-      type: 'uuid',
     },
   },
   dto: {
@@ -35,13 +27,7 @@ import { ScreensService } from './services';
     create: CreateScreenDto,
   },
   routes: {
-    only: [
-      'getOneBase',
-      'updateOneBase',
-      'deleteOneBase',
-      'createOneBase',
-      'getManyBase',
-    ],
+    only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
     },
@@ -56,19 +42,26 @@ import { ScreensService } from './services';
     },
   },
 })
-@Controller('v1/events/:eventId/screens')
+@Controller('v1/screens')
 export class ScreensController implements CrudController<ScreenModel> {
-  constructor(public service: ScreensService) {}
+  constructor(
+    public service: ScreensService,
+    private playlistsService: PlaylistsService,
+  ) {}
 
-  @Override('createOneBase')
+  @Post(':screenId/playlists')
+  @ApiOkResponse({ type: PlaylistModel })
   @ApiBearerAuth()
-  async createOne(
+  async createScreen(
     @IAM('id') userId: string,
-    @ParsedRequest() req: CrudRequest,
-    @ParsedBody() dto: CreateScreenDto,
-  ): Promise<ScreenModel> {
-    const screen = await this.service.createOne(req, { ...dto, userId });
+    @Param('screenId') screenId: string,
+    @ParsedBody() dto: CreatePlaylistDto,
+  ): Promise<PlaylistModel> {
+    const playlist = await this.playlistsService.createPlaylist(dto, {
+      screenId,
+      userId,
+    });
 
-    return ScreenModel.create(screen);
+    return PlaylistModel.create(playlist);
   }
 }

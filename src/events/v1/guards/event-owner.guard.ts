@@ -18,7 +18,7 @@ export class EventOwnerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const isOwner = await this.eventsRepository.isEventOwner({
-      eventId: request.params.id,
+      eventId: request.params.eventId,
       userId: request.user.id,
     });
 
