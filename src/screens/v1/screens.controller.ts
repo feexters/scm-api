@@ -16,7 +16,7 @@ import { ScreensService } from './services';
     type: ScreenModel,
   },
   params: {
-    id: {
+    screenId: {
       type: 'uuid',
       primary: true,
       field: 'id',
@@ -49,12 +49,12 @@ export class ScreensController implements CrudController<ScreenModel> {
     private playlistsService: PlaylistsService,
   ) {}
 
-  @Post(':id/playlists')
+  @Post(':screenId/playlists')
   @ApiOkResponse({ type: PlaylistModel })
   @ApiBearerAuth()
   async createScreen(
     @IAM('id') userId: string,
-    @Param('id') screenId: string,
+    @Param('screenId') screenId: string,
     @ParsedBody() dto: CreatePlaylistDto,
   ): Promise<PlaylistModel> {
     const playlist = await this.playlistsService.createPlaylist(dto, {

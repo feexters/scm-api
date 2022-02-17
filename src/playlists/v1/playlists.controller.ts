@@ -13,7 +13,7 @@ import { PlaylistsService } from './services';
     type: PlaylistModel,
   },
   params: {
-    id: {
+    playlistId: {
       type: 'uuid',
       primary: true,
       field: 'id',

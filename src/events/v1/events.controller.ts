@@ -23,7 +23,7 @@ import { ScreenModel } from 'src/screens/models';
     type: EventModel,
   },
   params: {
-    id: {
+    eventId: {
       type: 'uuid',
       primary: true,
       field: 'id',
@@ -74,13 +74,12 @@ export class EventsController implements CrudController<EventModel> {
     return EventModel.create(event);
   }
 
-  @Post(':id/screens')
+  @Post(':eventId/screens')
   @ApiOkResponse({ type: ScreenModel })
   @ApiBearerAuth()
   async createScreen(
     @IAM('id') userId: string,
-    @Param('id') eventId: string,
-    @ParsedRequest() req: CrudRequest,
+    @Param('eventId') eventId: string,
     @ParsedBody() dto: CreateScreenDto,
   ): Promise<ScreenModel> {
     const screen = await this.screensService.createScreen(dto, {

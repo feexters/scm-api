@@ -18,7 +18,7 @@ export class PlaylistOwnerGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
 
     const isOwner = await this.playlistsRepository.isPlaylistOwner({
-      playlistId: request.params.id,
+      playlistId: request.params.playlistId,
       userId: request.user.id,
     });
 

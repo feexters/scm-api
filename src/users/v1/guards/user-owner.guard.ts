@@ -10,7 +10,7 @@ export class UserOwnerGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    if (request.params.id !== request.user.id) {
+    if (request.params.userId !== request.user.id) {
       throw new ForbiddenException();
     }
 
