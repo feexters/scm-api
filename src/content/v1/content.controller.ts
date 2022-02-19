@@ -1,13 +1,6 @@
 import { Controller, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import {
-  Crud,
-  CrudController,
-  CrudRequest,
-  Override,
-  ParsedBody,
-  ParsedRequest,
-} from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { IAM, Public } from 'src/common/decorators';
 import { ContentModel } from '../models';
 import { CreateContentDto } from './dto';

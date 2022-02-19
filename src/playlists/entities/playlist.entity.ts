@@ -1,14 +1,6 @@
 import { Screen } from 'src/screens/entities';
 import { User } from '../../users/entities/user.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { PlaylistContent } from 'src/playlist-content/entities';
 
 const tableName = 'playlists';
@@ -43,9 +35,6 @@ export class Playlist {
   })
   user: User;
 
-  @OneToMany(
-    () => PlaylistContent,
-    (playlistContent) => playlistContent.playlist,
-  )
+  @OneToMany(() => PlaylistContent, (playlistContent) => playlistContent.playlist)
   playlistContentPlaylists: PlaylistContent[];
 }

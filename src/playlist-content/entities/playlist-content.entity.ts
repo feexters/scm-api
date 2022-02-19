@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  Index,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Playlist } from '../../playlists/entities/playlist.entity';
 import { Content } from '../../content/entities/content.entity';
 

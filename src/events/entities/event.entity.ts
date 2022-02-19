@@ -1,13 +1,6 @@
 import { Screen } from 'src/screens/entities';
 import { User } from 'src/users/entities';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 const tableName = 'events';
 
