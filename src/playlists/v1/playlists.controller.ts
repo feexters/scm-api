@@ -2,12 +2,16 @@ import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { Public } from 'src/common/decorators';
-import { AddContentToPlaylistRequestDto } from 'src/playlist-content/v1/dto/playlist-content.dto';
+import {
+  AddContentToPlaylistRequestDto,
+  AddContentToPlaylistResponseDto,
+} from 'src/playlist-content/v1/dto/playlist-content.dto';
 import { PlaylistModel } from '../models';
 import { CreatePlaylistDto, UpdatePlaylistDto } from './dto';
 import { PlaylistOwnerGuard } from './guards/playlist-owner.guard';
 import { PlaylistsService } from './services';
 import { PlaylistContentService } from '../../playlist-content/v1/services/playlist-content.service';
+import { DeleteResult } from 'typeorm';
 
 @ApiTags('[v1] Playlist')
 @Crud({
@@ -52,9 +56,14 @@ export class PlaylistsController implements CrudController<PlaylistModel> {
   async addContent(
     @Param('playlistId') playlistId: string,
     @Body() addContentToPlaylistDto: AddContentToPlaylistRequestDto,
-  ): Promise<boolean> {
-    this.playlistContentService.addContentToPlaylist(addContentToPlaylistDto, playlistId);
-    return true;
+  ): Promise<AddContentToPlaylistResponseDto> {
+    const playlistContent = await this.playlistContentService.addContentToPlaylist(addContentToPlaylistDto, playlistId);
+
+    if (!playlistContent) {
+      return { success: false };
+    }
+
+    return { success: true };
   }
 
   @Delete(':playlistId/content/:contentId')
@@ -64,8 +73,7 @@ export class PlaylistsController implements CrudController<PlaylistModel> {
   async deleteContent(
     @Param('playlistId') playlistId: string,
     @Param('contentId') contentId: string,
-  ): Promise<boolean> {
-    this.playlistContentService.deleteContentFromPlaylist({ contentId, playlistId });
-    return true;
+  ): Promise<DeleteResult> {
+    return this.playlistContentService.deleteContentFromPlaylist({ contentId, playlistId });
   }
 }
