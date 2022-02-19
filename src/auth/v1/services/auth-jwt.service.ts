@@ -6,10 +6,7 @@ import { JwtPayload } from '../dto';
 
 @Injectable()
 export class AuthJwtService {
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly usersRepository: UsersRepository,
-  ) {}
+  constructor(private readonly jwtService: JwtService, private readonly usersRepository: UsersRepository) {}
 
   async verifyTokenAsync(token: string): Promise<JwtPayload> {
     return this.jwtService.verifyAsync(token);

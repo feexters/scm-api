@@ -1,14 +1,7 @@
 import { CreateEventDto, UpdateEventDto } from './dto';
-import { Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import {
-  Crud,
-  CrudController,
-  CrudRequest,
-  Override,
-  ParsedBody,
-  ParsedRequest,
-} from '@nestjsx/crud';
+import { Crud, CrudController, CrudRequest, Override, ParsedBody, ParsedRequest } from '@nestjsx/crud';
 import { EventModel } from '../models/event.model';
 import { IAM, Public } from 'src/common/decorators';
 import { EventOwnerGuard } from './guards';
@@ -34,13 +27,7 @@ import { ScreenModel } from 'src/screens/models';
     create: CreateEventDto,
   },
   routes: {
-    only: [
-      'getOneBase',
-      'updateOneBase',
-      'deleteOneBase',
-      'createOneBase',
-      'getManyBase',
-    ],
+    only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'createOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
     },
@@ -57,10 +44,7 @@ import { ScreenModel } from 'src/screens/models';
 })
 @Controller('v1/events')
 export class EventsController implements CrudController<EventModel> {
-  constructor(
-    public service: EventsService,
-    private screensService: ScreensService,
-  ) {}
+  constructor(public service: EventsService, private screensService: ScreensService) {}
 
   @Override('createOneBase')
   @ApiBearerAuth()
@@ -80,7 +64,7 @@ export class EventsController implements CrudController<EventModel> {
   async createScreen(
     @IAM('id') userId: string,
     @Param('eventId') eventId: string,
-    @ParsedBody() dto: CreateScreenDto,
+    @Body() dto: CreateScreenDto,
   ): Promise<ScreenModel> {
     const screen = await this.screensService.createScreen(dto, {
       eventId,

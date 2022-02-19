@@ -9,10 +9,7 @@ import { User } from 'src/users/entities';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private readonly usersRepository: UsersRepository,
-    private readonly jwtService: JwtService,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository, private readonly jwtService: JwtService) {}
 
   async signUp(authSignUpDto: AuthSignUpDto): Promise<LoginResultType> {
     const userCreate = this.usersRepository.create({
