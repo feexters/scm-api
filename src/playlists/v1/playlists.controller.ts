@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { Public } from 'src/common/decorators';
@@ -54,6 +54,18 @@ export class PlaylistsController implements CrudController<PlaylistModel> {
     @Body() addContentToPlaylistDto: AddContentToPlaylistRequestDto,
   ): Promise<boolean> {
     this.playlistContentService.addContentToPlaylist(addContentToPlaylistDto, playlistId);
+    return true;
+  }
+
+  @Delete(':playlistId/content/:contentId')
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Remove content from playlist' })
+  @UseGuards(PlaylistOwnerGuard)
+  async deleteContent(
+    @Param('playlistId') playlistId: string,
+    @Param('contentId') contentId: string,
+  ): Promise<boolean> {
+    this.playlistContentService.deleteContentFromPlaylist({ contentId, playlistId });
     return true;
   }
 }

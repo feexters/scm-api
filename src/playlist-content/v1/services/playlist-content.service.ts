@@ -3,10 +3,15 @@ import { PlaylistContentRepository } from '../../repositories/playlist-content.r
 import { AddContentToPlaylistRequestDto } from '../dto/playlist-content.dto';
 import { PlaylistContent } from '../../entities/playlist-content.entity';
 import { POSITION_STEP } from '../../constants/playlist-content.constants';
+import { DeleteResult } from 'typeorm';
 
 @Injectable()
 export class PlaylistContentService {
   constructor(private readonly playlistContentRepository: PlaylistContentRepository) {}
+
+  async deleteContentFromPlaylist({ contentId, playlistId }: { contentId; playlistId }): Promise<DeleteResult> {
+    return this.playlistContentRepository.delete({ contentId, playlistId });
+  }
 
   async addContentToPlaylist(
     { contentId, beforeContentId }: AddContentToPlaylistRequestDto,
