@@ -3,6 +3,7 @@ import { ContentMediaType } from '../content.types';
 import { User } from '../../users/entities/user.entity';
 import { PlaylistContent } from 'src/playlist-content/entities';
 import { OneToMany } from 'typeorm';
+import { ContentAttachment } from 'src/content-attachments/entitties/content-attachment.entity';
 
 const tableName = 'content';
 
@@ -14,7 +15,7 @@ export class Content {
   id: string;
 
   @Column({ type: 'text' })
-  mediaUrl: string;
+  mediaUrl?: string;
 
   @Column({ type: 'enum', enum: ContentMediaType })
   mediaType: ContentMediaType;
@@ -27,4 +28,7 @@ export class Content {
 
   @OneToMany(() => PlaylistContent, (playlistContent) => playlistContent.content)
   playlistContentContent: PlaylistContent[];
+
+  @OneToMany(() => ContentAttachment, (contentAttachment) => contentAttachment.content)
+  attachments?: ContentAttachment[];
 }

@@ -5,7 +5,11 @@
   "username": "purrweb",
   "password": "purrweb",
   "database": "scm",
+  "migrations": ["migration/*.ts"],
   "entities": ["src/**/*.entity.ts"],
   "seeds": ["seeds/**/*.seed.ts"],
-  "factories": ["factories/**/*.factory.ts"]
+  "factories": ["factories/**/*.factory.ts"],
+  "cli": {
+    "migrationsDir": "migration"
+  }
 }
