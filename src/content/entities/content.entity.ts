@@ -3,7 +3,7 @@ import { ContentMediaType } from '../content.types';
 import { User } from '../../users/entities/user.entity';
 import { PlaylistContent } from 'src/playlist-content/entities';
 import { OneToMany } from 'typeorm';
-import { ContentAttachment } from 'src/content-attachments/entitties/content-attachment.entity';
+import { ContentAttachment } from 'src/content-attachments/entities/content-attachment.entity';
 
 const tableName = 'content';
 

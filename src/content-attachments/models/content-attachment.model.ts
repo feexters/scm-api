@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsUrl } from 'class-validator';
 import { ContentOrientationType } from 'src/content/content.types';
-import { ContentAttachment } from '../entitties/content-attachment.entity';
+import { ContentAttachment } from '../entities/content-attachment.entity';
 
 export class ContentAttachmentModel {
   @ApiProperty({ example: 'cf61390c-36bc-4c0b-954b-da303258d472' })
