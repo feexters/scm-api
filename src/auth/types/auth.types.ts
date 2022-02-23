@@ -1,3 +1,6 @@
-import { UserModel } from 'src/users/models';
+import { User } from 'src/users/entities';
 
-export type LoginResultType = UserModel & { token: string };
+export interface LoginResultType {
+  user: User;
+  token: string;
+}

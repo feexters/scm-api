@@ -13,15 +13,15 @@ export class AuthController {
   @Public()
   @ApiResponse({ type: AuthResponseDto })
   @ApiBody({ type: AuthSignInDto })
-  signIn(@Body() authSignInDto: AuthSignInDto): Promise<AuthResponseDto> {
-    return this.authService.signIn(authSignInDto);
+  async signIn(@Body() authSignInDto: AuthSignInDto): Promise<AuthResponseDto> {
+    return AuthResponseDto.create(await this.authService.signIn(authSignInDto));
   }
 
   @Post('/sign-up')
   @Public()
   @ApiResponse({ type: AuthResponseDto })
   @ApiBody({ type: AuthSignUpDto })
-  signUp(@Body() authSignUpDto: AuthSignUpDto): Promise<AuthResponseDto> {
-    return this.authService.signUp(authSignUpDto);
+  async signUp(@Body() authSignUpDto: AuthSignUpDto): Promise<AuthResponseDto> {
+    return AuthResponseDto.create(await this.authService.signUp(authSignUpDto));
   }
 }

@@ -6,6 +6,7 @@ import { UpdateUserDto } from './dto';
 import { UsersService } from './services';
 import { Public } from '../../common/decorators/public.decorator';
 import { UserOwnerGuard } from './guards';
+import { UserModelInterceptor } from './interceptors';
 
 @ApiTags('[v1] Users')
 @Crud({
@@ -26,12 +27,15 @@ import { UserOwnerGuard } from './guards';
     only: ['getOneBase', 'updateOneBase', 'deleteOneBase'],
     getOneBase: {
       decorators: [Public()],
+      interceptors: [UserModelInterceptor],
     },
     updateOneBase: {
       decorators: [UseGuards(UserOwnerGuard), ApiBearerAuth()],
+      interceptors: [UserModelInterceptor],
     },
     deleteOneBase: {
       decorators: [UseGuards(UserOwnerGuard), ApiBearerAuth()],
+      interceptors: [UserModelInterceptor],
     },
   },
 })

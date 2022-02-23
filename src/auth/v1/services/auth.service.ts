@@ -2,7 +2,6 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersRepository } from 'src/users/repositories';
 import { AuthSignUpDto, AuthSignInDto, JwtPayload } from '../dto';
 import { JwtService } from '@nestjs/jwt';
-import { UserModel } from 'src/users/models';
 import { LoginResultType } from 'src/auth/types';
 import { getHashedPassword } from 'src/common/utils';
 import { User } from 'src/users/entities';
@@ -40,7 +39,7 @@ export class AuthService {
     };
 
     return {
-      ...UserModel.create(user),
+      user,
       token: this.jwtService.sign(jwtPayload),
     };
   }

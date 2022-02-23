@@ -10,6 +10,7 @@ import { ContentAttachmentModel } from '../../content-attachments/models/content
 import { ContentAttachmentsService } from 'src/content-attachments/v1/services';
 import { CreateContentAttachmentDto } from '../../content-attachments/v1/dto/content-attachment.dto';
 import { DeleteResult } from 'typeorm';
+import { ContentModelInterceptor } from './interceptors';
 
 @ApiTags('[v1] Content')
 @Crud({
@@ -30,9 +31,11 @@ import { DeleteResult } from 'typeorm';
     only: ['getOneBase', 'deleteOneBase', 'createOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
+      interceptors: [ContentModelInterceptor],
     },
     getManyBase: {
       decorators: [Public()],
+      interceptors: [ContentModelInterceptor],
     },
     deleteOneBase: {
       decorators: [UseGuards(ContentOwnerGuard), ApiBearerAuth()],
