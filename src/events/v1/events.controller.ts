@@ -9,6 +9,7 @@ import { EventsService } from './services';
 import { ScreensService } from '../../screens/v1/services/screens.service';
 import { CreateScreenDto } from 'src/screens/v1/dto';
 import { ScreenModel } from 'src/screens/models';
+import { EventModelInterceptor } from './interceptors';
 
 @ApiTags('[v1] Events')
 @Crud({
@@ -30,12 +31,15 @@ import { ScreenModel } from 'src/screens/models';
     only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'createOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
+      interceptors: [EventModelInterceptor],
     },
     getManyBase: {
       decorators: [Public()],
+      interceptors: [EventModelInterceptor],
     },
     updateOneBase: {
       decorators: [UseGuards(EventOwnerGuard), ApiBearerAuth()],
+      interceptors: [EventModelInterceptor],
     },
     deleteOneBase: {
       decorators: [UseGuards(EventOwnerGuard), ApiBearerAuth()],

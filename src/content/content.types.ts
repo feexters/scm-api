@@ -4,3 +4,8 @@ export enum ContentMediaType {
   AUDIO = 'AUDIO',
   HTML = 'HTML',
 }
+
+export enum ContentOrientationType {
+  LANDSCAPE = 'LANDSCAPE',
+  PORTRAIT = 'PORTRAIT',
+}

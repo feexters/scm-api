@@ -12,6 +12,7 @@ import { PlaylistOwnerGuard } from './guards/playlist-owner.guard';
 import { PlaylistsService } from './services';
 import { PlaylistContentService } from '../../playlist-content/v1/services/playlist-content.service';
 import { DeleteResult } from 'typeorm';
+import { PlaylistModelInterceptor } from './interceptors';
 
 @ApiTags('[v1] Playlist')
 @Crud({
@@ -33,12 +34,15 @@ import { DeleteResult } from 'typeorm';
     only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
+      interceptors: [PlaylistModelInterceptor],
     },
     getManyBase: {
       decorators: [Public()],
+      interceptors: [PlaylistModelInterceptor],
     },
     updateOneBase: {
       decorators: [UseGuards(PlaylistOwnerGuard), ApiBearerAuth()],
+      interceptors: [PlaylistModelInterceptor],
     },
     deleteOneBase: {
       decorators: [UseGuards(PlaylistOwnerGuard), ApiBearerAuth()],

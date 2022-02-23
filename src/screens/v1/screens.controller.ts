@@ -8,6 +8,7 @@ import { PlaylistsService } from 'src/playlists/v1/services';
 import { ScreenModel } from '../models';
 import { CreateScreenDto, UpdateScreenDto } from './dto/screens.dto';
 import { ScreenOwnerGuard } from './guards';
+import { ScreenModelInterceptor } from './interceptors';
 import { ScreensService } from './services';
 
 @ApiTags('[v1] Screens')
@@ -30,12 +31,15 @@ import { ScreensService } from './services';
     only: ['getOneBase', 'updateOneBase', 'deleteOneBase', 'getManyBase'],
     getOneBase: {
       decorators: [Public()],
+      interceptors: [ScreenModelInterceptor],
     },
     getManyBase: {
       decorators: [Public()],
+      interceptors: [ScreenModelInterceptor],
     },
     updateOneBase: {
       decorators: [UseGuards(ScreenOwnerGuard), ApiBearerAuth()],
+      interceptors: [ScreenModelInterceptor],
     },
     deleteOneBase: {
       decorators: [UseGuards(ScreenOwnerGuard), ApiBearerAuth()],

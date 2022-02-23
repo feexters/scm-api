@@ -9,6 +9,7 @@ import { ScreensModule } from './screens/screens.module';
 import { PlaylistsModule } from './playlists/playlists.module';
 import { ContentModule } from './content/content.module';
 import { PlaylistContentModule } from './playlist-content/playlist-content.module';
+import { ContentAttachmentsModule } from './content-attachments/content-attachments.module';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -29,6 +30,7 @@ import * as configuration from './config/configuration';
     PlaylistsModule,
     ContentModule,
     PlaylistContentModule,
+    ContentAttachmentsModule,
   ],
 })
 export class AppModule {}
