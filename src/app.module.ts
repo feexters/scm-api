@@ -10,6 +10,7 @@ import { PlaylistsModule } from './playlists/playlists.module';
 import { ContentModule } from './content/content.module';
 import { PlaylistContentModule } from './playlist-content/playlist-content.module';
 import { ContentAttachmentsModule } from './content-attachments/content-attachments.module';
+import { AwsModule } from './aws/aws.module';
 import * as configuration from './config/configuration';
 
 @Module({
@@ -31,6 +32,7 @@ import * as configuration from './config/configuration';
     ContentModule,
     PlaylistContentModule,
     ContentAttachmentsModule,
+    AwsModule,
   ],
 })
 export class AppModule {}

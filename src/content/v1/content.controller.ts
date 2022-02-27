@@ -75,10 +75,18 @@ export class ContentController implements CrudController<ContentModel> {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Remove attachment from content' })
   @UseGuards(ContentOwnerGuard)
-  async deleteContent(
+  async deleteAttachment(
     @Param('attachmentId') attachmentId: string,
     @Param('contentId') contentId: string,
   ): Promise<DeleteResult> {
     return this.contentAttachmentsService.deleteAttachment({ contentId, attachmentId });
+  }
+
+  @Override('deleteOneBase')
+  @Delete(':contentId')
+  @ApiBearerAuth()
+  @UseGuards(ContentOwnerGuard)
+  async deleteContent(@Param('contentId') contentId: string): Promise<DeleteResult> {
+    return this.service.deleteContent(contentId);
   }
 }
