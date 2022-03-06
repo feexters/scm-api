@@ -1,5 +1,4 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
 import { IsEmail, IsString, Length } from 'class-validator';
 import { User } from '../entities';
 
@@ -16,9 +15,6 @@ export class UserModel {
   @ApiProperty()
   @IsEmail()
   email: string;
-
-  @Exclude()
-  password: string;
 
   constructor(data: Partial<UserModel>) {
     Object.assign(this, data);

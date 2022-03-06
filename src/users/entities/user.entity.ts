@@ -14,13 +14,13 @@ export class User {
   id: string;
 
   @Column({ type: 'text', unique: true })
+  authId: string;
+
+  @Column({ type: 'text', unique: true, nullable: true })
   username: string;
 
-  @Column({ type: 'text', unique: true })
+  @Column({ type: 'text', unique: true, nullable: true })
   email: string;
-
-  @Column({ type: 'text' })
-  password: string;
 
   @OneToMany(() => Event, (event) => event.user)
   events: Event[];

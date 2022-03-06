@@ -13,9 +13,12 @@ export class AuthJwtService {
   }
 
   async validateUser(payload: JwtPayload): Promise<User | null> {
-    const user = await this.usersRepository.findOne(payload.id);
+    const user = await this.usersRepository.findOne({ authId: payload.sub });
 
-    if (!user) return null;
+    if (!user) {
+      const createdUser = this.usersRepository.create({ authId: payload.sub });
+      return this.usersRepository.save(createdUser);
+    }
 
     return user;
   }

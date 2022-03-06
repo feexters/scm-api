@@ -3,7 +3,6 @@ import { Event } from 'src/events/entities';
 import { Screen } from 'src/screens/entities';
 import { User } from 'src/users/entities';
 import { Factory, Seeder } from 'typeorm-seeding';
-import { getHashedPassword } from '../src/common/utils/get-hashed-password';
 import { takeRandom } from '../src/common/utils/take-random';
 import { Playlist } from '../src/playlists/entities/playlist.entity';
 import { ContentMediaType } from '../src/content/content.types';
@@ -16,7 +15,7 @@ export default class CreateManyEntities implements Seeder {
       new Array(10).fill(undefined).map((_, index) =>
         factory(User)().create({
           username: 'username' + index,
-          password: getHashedPassword('12345' + index),
+          authId: 'auth' + index,
         }),
       ),
     );

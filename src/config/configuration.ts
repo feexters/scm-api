@@ -19,6 +19,9 @@ export const validationSchema = Joi.object({
   S3_PUBLIC_BUCKET_NAME: Joi.string().required(),
   S3_PUT_ACTION_EXPIRES_SEC: Joi.number().integer().required(),
   S3_GET_ACTION_EXPIRES_SEC: Joi.number().integer().required(),
+  // auth0
+  AUTH0_ISSUER_URL: Joi.string().required(),
+  AUTH0_AUDIENCE: Joi.string().required(),
 });
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -44,6 +47,10 @@ export const configuration = () => ({
     publicBucket: process.env.S3_PUBLIC_BUCKET_NAME,
     putActionExpiresSec: parseInt(process.env.S3_PUT_ACTION_EXPIRES_SEC as string, 10),
     getActionExpiresSec: parseInt(process.env.S3_GET_ACTION_EXPIRES_SEC as string, 10),
+  },
+  auth0: {
+    issuerUrl: process.env.AUTH0_ISSUER_URL,
+    audience: process.env.AUTH0_AUDIENCE,
   },
 });
 
